@@ -22,6 +22,9 @@ if __name__ == '__main__':
 	with Request.urlopen(URL) as f:
 		pattern = '(?<=<title>).*(?= \(.*\) - uploaded.net</title>)'
 		fileTitle = re.findall(pattern, str(f.read(500)))[0]
+		if(fileTitle.__len__()<1):
+			print('There is something smelly with the file, or the server.')
+			exit()
 
 	subprocess.call('exec echo '+fileTitle, shell=True)
 #	subprocess.call('exec plowdown --auth='+USERandPASS+' '+URL+' > /dev/null &', shell=True)
